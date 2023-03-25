@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(
+            Question(
               questions[questionIndex],
             ),
             ElevatedButton(
