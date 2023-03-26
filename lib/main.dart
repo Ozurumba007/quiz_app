@@ -6,7 +6,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
       'What\'s your favorite animal?',
     ];
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Quiz App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
