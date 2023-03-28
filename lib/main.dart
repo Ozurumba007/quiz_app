@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_provider/answer.dart';
 import 'package:quiz_provider/question.dart';
 
 void main() {
@@ -13,28 +14,41 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+  final questions = const [
+    {
+      'questionText': 'what\'s your favorite color?',
+      'answers': ['Black', 'Red', 'Green', 'White'],
+    },
+    {
+      'questionText': 'what\'s your favorite animal?',
+      'answers': ['Rabbit', 'Snake', 'Green', 'White'],
+    },
+    {
+      'questionText': 'who\'s your favorite Instructor?',
+      'answers': ['Max', 'Leo', 'Max', 'Mac'],
+    },
+  ];
+  var _questionIndex = 0;
 
-  void answerQuestion() {
+  void _answerQuestion() {
+    if (_questionIndex < questions.length) {
+      print('We have more question!');
+    }
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
 
-    print(questionIndex);
+    print(_questionIndex);
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal?',
-    ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Quiz App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -43,20 +57,21 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(
-              questions[questionIndex],
+              questions[_questionIndex]['questionText'] as String,
             ),
-            ElevatedButton(
-              onPressed: answerQuestion,
-              child: Text('answer 1'),
-            ),
-            ElevatedButton(
-              onPressed: answerQuestion,
-              child: Text('answer 2'),
-            ),
-            ElevatedButton(
-              onPressed: answerQuestion,
-              child: Text('answer 3'),
-            ),
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList()
+            // Answer(
+            //   selectHandler: _answerQuestion,
+            // ),
+            // Answer(
+            //   selectHandler: _answerQuestion,
+            // ),
+            // Answer(
+            //   selectHandler: _answerQuestion,
+            // ),
           ],
         ),
       ),
